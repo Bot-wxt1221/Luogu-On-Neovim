@@ -1,0 +1,1 @@
+#define TIMESTAMP "@COMPILE_TIME@"
