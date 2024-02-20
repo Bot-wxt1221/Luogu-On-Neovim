@@ -23,7 +23,7 @@ int submit(char *pro,char *code){
     rid=rid*10+buf[i]-'0';
     i++;
   }
-  sprintf(buf,"microsoft-edge-stable https://www.luogu.com.cn/record/%lld",rid);
+  sprintf(buf,"xdg-open https://www.luogu.com.cn/record/%lld",rid);
   system(buf);
   free(buf);
   free(tok);
