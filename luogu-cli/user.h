@@ -6,3 +6,7 @@ struct user{
 };
 
 extern int crsf(char *);
+
+extern int login(char *,char *);
+
+extern int readconf(char *,char *);

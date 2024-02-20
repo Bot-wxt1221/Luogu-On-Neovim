@@ -19,9 +19,34 @@ int crsf(char *a){
   }
   a[nowi]='\0';
   free(buf);
+  fclose(te);
   return 0;
 }
 
-int login(){
-  return -1;
+int login(char *cli,char *uid){
+  printf("uid:");
+  scanf("%s",uid);
+  printf("\ncli:");
+  scanf("%s",cli);
+  return 0;
+}
+
+int readconf(char *cli,char *uid){
+  char *buf1=malloc(10000);
+  char *buf2=malloc(10000);
+  FILE *te=fopen("~/.config/luogu-cli/cli.txt","r");
+  if(te==NULL){
+    return -1;
+  }
+  fscanf(te,"%s",buf1);
+  fclose(te);
+  te=fopen("~/.config/luogu-cli/uid.txt","r");
+  if(te==NULL){
+    return -1;
+  }
+  fprintf(te,"%s",buf2);
+  fclose(te);
+  free(buf1);
+  free(buf2);
+  return 0;
 }
