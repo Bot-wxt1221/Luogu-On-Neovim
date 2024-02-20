@@ -5,8 +5,6 @@ project(LuoguCLI)
 
 SET(SRC_LIST main.c command.c user.c problem.c)
 
-add_compile_definitions(MAX_COOKIE_SIZE=100)
-
 string(TIMESTAMP COMPILE_TIME %Y%m%d-%H%M%S)
 
 configure_file(compile.h.in compile.h)
