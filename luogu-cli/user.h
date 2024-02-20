@@ -4,3 +4,5 @@ struct user{
    int uid;
    char cookie[MAX_COOKIE_SIZE];
 };
+
+extern int crsf(char *);
