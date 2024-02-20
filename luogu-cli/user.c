@@ -1,8 +1,35 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <string.h>
+int readconf(char *cli,char *uid){
+  char *buf3=getenv("HOME");
+  char *buf4=malloc(1000);
+  sprintf(buf4,
+          "%s/.config/luogu-cli/cli.txt",buf3);
+  FILE *te=fopen(buf4,"r");
+  if(te==NULL){
+    return -1;
+  }
+  fscanf(te,"%s",cli);
+  fclose(te);
+  sprintf(buf4,
+          "%s/.config/luogu-cli/uid.txt",buf3);
+  FILE *te2=fopen(buf4,"r");
+  if(te2==NULL){
+    return -1;
+  }
+  fscanf(te2,"%s",uid);
+  fclose(te2);
+  free(buf4);
+  return 0;
+}
 int crsf(char *a){
-  system("curl https://www.luogu.com.cn | grep csrf > /tmp/luogu-cli.txt");
+  char *buf2=malloc(1000);
+  char *cli=malloc(1000);
+  char *uid=malloc(1000);
+  readconf(cli,uid);
+  sprintf(buf2,"curl https://www.luogu.com.cn --cookie \"__client_id=%s\" --cookie \"_uid=%s\"| grep csrf > /tmp/luogu-cli.txt",cli,uid);
+  system(buf2);
   FILE *te=fopen("/tmp/luogu-cli.txt","r");
   if(te==NULL){
     return -1;
@@ -19,6 +46,9 @@ int crsf(char *a){
   }
   a[nowi]='\0';
   free(buf);
+  free(cli);
+  free(uid);
+  free(buf2);
   fclose(te);
   return 0;
 }
@@ -31,22 +61,4 @@ int login(char *cli,char *uid){
   return 0;
 }
 
-int readconf(char *cli,char *uid){
-  char *buf1=malloc(10000);
-  char *buf2=malloc(10000);
-  FILE *te=fopen("~/.config/luogu-cli/cli.txt","r");
-  if(te==NULL){
-    return -1;
-  }
-  fscanf(te,"%s",buf1);
-  fclose(te);
-  te=fopen("~/.config/luogu-cli/uid.txt","r");
-  if(te==NULL){
-    return -1;
-  }
-  fprintf(te,"%s",buf2);
-  fclose(te);
-  free(buf1);
-  free(buf2);
-  return 0;
-}
+

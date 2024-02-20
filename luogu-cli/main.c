@@ -54,7 +54,7 @@ int main(int argc,char *argv[]){
     break;
   }
   case 's':{
-    ret=submit(argv[1],argv[2]);
+    ret=submit(argv[2],argv[3]);
     break;
   }
   }
