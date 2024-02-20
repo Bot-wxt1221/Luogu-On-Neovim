@@ -10,7 +10,11 @@ int readconf(char *cli,char *uid){
   if(te==NULL){
     return -1;
   }
-  fscanf(te,"%s",cli);
+  int ret=0;
+  ret=fscanf(te,"%s",cli);
+  if(ret==-1){
+    return ret;
+  }
   fclose(te);
   sprintf(buf4,
           "%s/.config/luogu-cli/uid.txt",buf3);
@@ -18,7 +22,10 @@ int readconf(char *cli,char *uid){
   if(te2==NULL){
     return -1;
   }
-  fscanf(te2,"%s",uid);
+  ret=fscanf(te2,"%s",uid);
+  if(ret==-1){
+    return ret;
+  }
   fclose(te2);
   free(buf4);
   return 0;

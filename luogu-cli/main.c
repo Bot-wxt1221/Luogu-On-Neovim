@@ -20,43 +20,56 @@ int main(int argc,char *argv[]){
     system("touch ~/.config/luogu-cli/a.txt");
   } 
  switch(argv[1][0]){
-  case 'h':{
-    ret=help();
-    goto end;
-  }
-  case 'l':{
-    char *buf1=malloc(1000);
-    char *buf2=malloc(1000);
-    char *buf3=getenv("HOME");
-    char *buf4=malloc(1000);
-    ret=login(buf1,buf2);
-    sprintf(buf4,
-            "%s/.config/luogu-cli/cli.txt",buf3);
-    FILE *te=fopen(buf4,"w");
-    if(te==NULL){
-      printf("File error");
-      return -1;
+    case 'h':{
+      ret=help();
+      goto end;
     }
-    fprintf(te,"%s",buf1);
-    fclose(te);
-    sprintf(buf4,
-            "%s/.config/luogu-cli/uid.txt",buf3);
-    te=fopen(buf4,"w");
-    if(te==NULL){
-      printf("File error");
-      return -1;
+    case 'l':{
+      char *buf1=malloc(1000);
+      char *buf2=malloc(1000);
+      char *buf3=getenv("HOME");
+      char *buf4=malloc(1000);
+      ret=login(buf1,buf2);
+      sprintf(buf4,
+              "%s/.config/luogu-cli/cli.txt",buf3);
+      FILE *te=fopen(buf4,"w");
+      if(te==NULL){
+        printf("File error");
+        return -1;
+      }
+      fprintf(te,"%s",buf1);
+      fclose(te);
+      sprintf(buf4,
+              "%s/.config/luogu-cli/uid.txt",buf3);
+      te=fopen(buf4,"w");
+      if(te==NULL){
+        printf("File error");
+        return -1;
+      }
+      fprintf(te,"%s",buf2);
+      fclose(te);
+      free(buf1);
+      free(buf4);
+      free(buf2);
+      break;
     }
-    fprintf(te,"%s",buf2);
-    fclose(te);
-    free(buf1);
-    free(buf4);
-    free(buf2);
-    break;
-  }
-  case 's':{
-    ret=submit(argv[2],argv[3]);
-    break;
-  }
+    case 's':{
+      if(argv[1][1]=='u'){
+        ret=submit(argv[2],argv[3]);
+        break;
+      }else{
+        char *buf=malloc(1000);
+        sprintf(buf,"xdg-open https://www.luogu.com.cn/problem/solution/%s",argv[2]);
+        system(buf);
+        free(buf);
+      }
+    }
+    case 'p':{
+      char *buf=malloc(1000);
+      sprintf(buf,"xdg-open https://www.luogu.com.cn/problem/%s",argv[2]);
+      system(buf);
+      free(buf);
+    }
   }
   end:{}
   return ret;
