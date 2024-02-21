@@ -37,4 +37,14 @@ function M.submit()
   local proble=vim.ui.input({prompt='[Luogu-CLI]Enter Problem Code:'},function(input)   vim.api.nvim_command("!~/.config/luogu-cli/LuoguCLI submit "..input.." %") end);
 end
 
+function M.solution()
+    local proble=vim.ui.input({prompt='[Luogu-CLI]Enter Problem Code:'},function(input)   vim.api.nvim_command("!~/.config/luogu-cli/LuoguCLI  solution "..input) end);
+end
+
+function M.problem()
+    local proble=vim.ui.input({prompt='[Luogu-CLI]Enter Problem Code:'},function(input)   vim.api.nvim_command("!~/.config/luogu-cli/LuoguCLI  problem "..input) end);
+end
+
+
+
 return M
