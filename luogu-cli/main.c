@@ -13,7 +13,7 @@ int main(int argc,char *argv[]){
   char *buf3=getenv("HOME");
   char *buf4=malloc(1000);
   sprintf(buf4,
-          "%s/.config/luogu-cli/cli.txt",buf3);
+          "%s/.config/luogu-cli/a.txt",buf3);
   FILE *te=fopen(buf4,"r");
   if(te==NULL){
     system("mkdir ~/.config/luogu-cli");
