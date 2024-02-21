@@ -55,7 +55,22 @@ int main(int argc,char *argv[]){
     }
     case 's':{
       if(argv[1][1]=='u'){
-        ret=submit(argv[2],argv[3]);
+        char *code=malloc(1000000);
+        FILE *fe=fopen(argv[3],"r");
+        if(fe==NULL){
+          return -1;
+        }
+        int i=0;
+        while((code[i++]=fgetc(fe))!=EOF){
+          if(code[i-1]=='\n'){
+            i--;
+            code[i++]='\\';
+            code[i++]='n';
+          }
+        }
+        code[--i]='\0';
+        ret=submit(argv[2],code);
+        free(code);
         break;
       }else{
         char *buf=malloc(1000);
