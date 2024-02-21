@@ -30,6 +30,37 @@ int readconf(char *cli,char *uid){
   free(buf4);
   return 0;
 }
+int crsf_pro(char *a,char *b){
+  char *buf2=malloc(1000);
+  char *cli=malloc(1000);
+  char *uid=malloc(1000);
+  readconf(cli,uid);
+  sprintf(buf2,"curl https://www.luogu.com.cn/problem/%s --cookie \"__client_id=%s\" --cookie \"_uid=%s\"| grep csrf > /tmp/luogu-cli.txt",b,cli,uid);
+  system(buf2);
+  FILE *te=fopen("/tmp/luogu-cli.txt","r");
+  if(te==NULL){
+    return -1;
+  }
+  char *buf=malloc(10000);
+  fscanf(te,"%s",buf);
+  fscanf(te,"%s",buf);
+  fscanf(te,"%s",buf);
+  int tt=9;//read the response of it and you will know why it is this
+  int nowi=0;
+  while(buf[tt]!='\"'){
+    a[nowi++]=buf[tt];
+    tt++;
+  }
+  a[nowi]='\0';
+  free(buf);
+  free(cli);
+  free(uid);
+  free(buf2);
+  fclose(te);
+  return 0;
+}
+
+
 int crsf(char *a){
   char *buf2=malloc(1000);
   char *cli=malloc(1000);

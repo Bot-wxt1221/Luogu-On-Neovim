@@ -9,7 +9,7 @@ int submit(char *pro,char *code){
   char *buf=malloc(10000000);
   char *tok=malloc(100);
   readconf(cli,uid);
-  crsf(tok);
+  crsf_pro(tok,pro);
   sleep(1);
   char *buf2=malloc(10000000);
   sprintf(buf,"curl --cookie \"__client_id=%s\" --cookie \"_uid=%s\" --user-agent \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 Edg/121.0.0.0\" -X POST  -H \"Content-Type: application/json\" -e \"https://www.luogu.com.cn/problem/%s\"  https://www.luogu.com.cn/fe/api/problem/submit/%s -d @/tmp/data.json -H \"X-Csrf-Token: %s\" > /tmp/luogu-cli.txt",cli,uid,pro,pro,tok);
