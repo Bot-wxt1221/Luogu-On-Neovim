@@ -11,7 +11,15 @@ int submit(char *pro,char *code){
   readconf(cli,uid);
   crsf(tok);
   sleep(1);
-  sprintf(buf,"curl --cookie \"__client_id=%s\" --cookie \"_uid=%s\" --user-agent \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 Edg/121.0.0.0\" -X POST  -H \"Content-Type: application/json\" -e \"https://www.luogu.com.cn/problem/%s\"  https://www.luogu.com.cn/fe/api/problem/submit/%s -d \'{\"enableO2\":1,\"lang\":28,\"code\":\"%s\"}\' -H \"X-Csrf-Token: %s\" > /tmp/luogu-cli.txt",cli,uid,pro,pro,code,tok);
+  char *buf2=malloc(10000000);
+  sprintf(buf,"curl --cookie \"__client_id=%s\" --cookie \"_uid=%s\" --user-agent \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 Edg/121.0.0.0\" -X POST  -H \"Content-Type: application/json\" -e \"https://www.luogu.com.cn/problem/%s\"  https://www.luogu.com.cn/fe/api/problem/submit/%s -d @/tmp/data.json -H \"X-Csrf-Token: %s\" > /tmp/luogu-cli.txt",cli,uid,pro,pro,tok);
+  sprintf(buf2,"{\"enableO2\":1,\"lang\":28,\"code\":\"%s\"}",code);
+  FILE *fi2=fopen("/tmp/data.json","w");
+  if(fi2==NULL){
+    return -1;
+  }
+  fprintf(fi2,"%s",buf2);
+  fclose(fi2);
   printf("%s",buf);
   system(buf);
   FILE *fi=fopen("/tmp/luogu-cli.txt","r");
@@ -28,6 +36,7 @@ int submit(char *pro,char *code){
   sprintf(buf,"xdg-open https://www.luogu.com.cn/record/%lld",rid);
   system(buf);
   free(buf);
+  free(buf2);
   free(tok);
   free(cli);
   free(uid);
