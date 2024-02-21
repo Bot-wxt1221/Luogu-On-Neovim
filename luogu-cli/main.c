@@ -67,6 +67,19 @@ int main(int argc,char *argv[]){
             code[i++]='\\';
             code[i++]='n';
           }
+          if(code[i-1]=='\t'){
+            i--;
+            code[i++]='\\';
+            code[i++]='t';
+          }
+          if(code[i-1]=='"'){
+            i--;
+            code[i++]='\\';
+            code[i++]='"';
+          }
+          if(code[i-1]=='\\'){
+            code[i++]='\\';
+          }
         }
         code[--i]='\0';
         ret=submit(argv[2],code);
