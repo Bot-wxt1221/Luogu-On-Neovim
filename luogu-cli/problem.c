@@ -21,6 +21,7 @@ int submit(char *pro,char *code){
   fclose(fi2);
   printf("%s",buf);
   system(buf);
+  system("cat /tmp/luogu-cli.txt");
   FILE *fi=fopen("/tmp/luogu-cli.txt","r");
   if(fi==NULL){
     return -1;
