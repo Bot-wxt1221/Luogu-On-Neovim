@@ -4,25 +4,15 @@ local whichkey = require "which-key"
 
 
 function M.setup()
-  local keymap={
-    s = {
-      name = "Luogu",
-      s = { "<cmd>lua require'Luogu-On-Neovim'.submit()<cr>", "Submit current problem" },
-      o = { "<cmd>lua require'Luogu-On-Neovim'.solution()<cr>", "Read solution" },
-      p = { "<cmd>lua require'Luogu-On-Neovim'.problem()<cr>", "View problem" },
-      l = { "<cmd>lua require'Luogu-On-Neovim'.login()<cr>", "login" },
-      i = {"<cmd> lua require 'Luogu-On-Neovim'.install()<cr>","install"},
-    },
+  local keymap= 
+  {
+    { "<leader>so", "<cmd>lua require'Luogu-On-Neovim'.solution()<cr>", desc = "Solution", mode = "n" },
+    { "<leader>ss", "<cmd>lua require'Luogu-On-Neovim'.submit()<cr>", desc = "Submit", mode = "n" },
+    { "<leader>sp", "<cmd>lua require'Luogu-On-Neovim'.problem()<cr>", desc = "Problem", mode = "n" },
+    { "<leader>sl", "<cmd>lua require'luogu-on-neovim'.login()<cr>", desc = "Login", mode = "n" },
+    { "<leader>si", "<cmd>lua require'luogu-on-neovim'.install()<cr>", desc = "Install", mode = "n" },
   }
-  local opts = {
-    mode = "n",
-    prefix = "<leader>",
-    buffer = nil,
-    silent = true,
-    noremap = true,
-    nowait = false,
-  }
-  whichkey.register(keymap, opts)
+  whichkey.add(keymap)
 end
 
 function M.login()
